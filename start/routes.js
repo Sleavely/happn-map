@@ -13,8 +13,18 @@
 |
 */
 
+const Config = use('Config')
 const Route = use('Route')
 
-Route.get('/', ({ request }) => {
-  return { greeting: 'Hello world in JSON' }
+Route
+.group(() => {
+  Route.get('account', 'ApiV1Controller.getAccount')
+  Route.get('recommendations', 'ApiV1Controller.getRecommendations')
+  Route.get('timeline', 'ApiV1Controller.getTimeline')
+  Route.get('users/:id', 'ApiV1Controller.getUser')
+})
+.prefix('api/v1')
+
+Route.get('/', async ({ view }) => {
+  return view.render('welcome', { tokenCookieName: Config.get('happn.tokenCookie') })
 })
