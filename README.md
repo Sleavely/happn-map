@@ -1,28 +1,20 @@
-# Adonis API application
+# happn-map 🗺️🔍💘
 
-This is the boilerplate for creating an API server in AdonisJs, it comes pre-configured with.
+A simple map for actually finding someone you met on Happn.
 
-1. Bodyparser
-2. Authentication
-3. CORS
-4. Lucid ORM
-5. Migrations and seeds
+> B-but.. why?
+
+Happn is a great idea. The premise is that you go about your day and see someone you fancy. Maybe you exchange smiles on a bus, maybe it's the cute person in front of you at the supermarket, who knows? The point is, you're supposed to _encounter_ anyone that also has the app and has been in the same area as you at the same time.
+
+The catch, however, is that the UI for Happn is essentially a clunky version of Tinder, meaning you only see one person at a time. While you can scroll through your matches, in reality it's not a feasible way to find that person you saw on the subway. Imagine how many people you pass every day, and if only one in twenty has Happn installed, you'll soon find your self scrolling at the same rate you pass by new users.
 
 ## Setup
 
-Use the adonis command to install the blueprint
-
 ```bash
-adonis new yardstick --api-only
+git clone git@github.com:Sleavely/happn-map.git
+cd happn-map
+npm install
+npm start
 ```
 
-or manually clone the repo and then run `npm install`.
-
-
-### Migrations
-
-Run the following command to run startup migrations.
-
-```js
-adonis migration:run
-```
+Now go to http://localhost:3333 and follow the instructions.
