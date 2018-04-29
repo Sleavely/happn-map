@@ -12,11 +12,48 @@
     {
       font-family: sans-serif;
     }
+    #visualization .vis-item
+    {
+      background-color: transparent;
+    }
+    #visualization .vis-item,
+    #visualization .vis-item .vis-item-content
+    {
+      border-radius: 3px;
+    }
+    #visualization .vis-item .vis-item-content
+    {
+      padding: 0;
+    }
+
     .photo
     {
       background-size: cover;
       min-height: 100px;
       min-width: 100px;
+    }
+    .photo > div
+    {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+    }
+    .photo h3
+    {
+      margin: 0;
+      text-align: center;
+    }
+    .photo a,
+    .photo a:active,
+    .photo a:visited
+    {
+      color: white;
+      text-shadow:
+        -1px -1px 0 #000,
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000;
+      text-decoration: none;
     }
   </style>
   {{ script('vendor/vis/dist/vis') }}
