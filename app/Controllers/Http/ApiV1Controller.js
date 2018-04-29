@@ -25,7 +25,12 @@ class ApiV1Controller {
   async getRecommendations({ request })
   {
     let happn = await this.apiClient({ request })
-    let result = await happn.getRecommendations()
+
+    const query = request.get()
+    const limit = parseInt(query.limit || 16, 10)
+    const offset = parseInt(query.offset || 0, 10)
+
+    let result = await happn.getRecommendations(limit, offset)
     return result
   }
 
