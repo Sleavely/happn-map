@@ -59,6 +59,7 @@
     // Only react to changes made by the user
     if(e.byUser)
     {
+      //TODO: check if we need to request more encounters
       console.log('rangechanged', e)
     }
     //TODO: this should trigger a repaint in gmaps
