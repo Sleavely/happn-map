@@ -18,3 +18,12 @@ npm start
 ```
 
 Now go to http://localhost:3333 and follow the instructions.
+
+## Development
+
+_happn-map_ is built with the following tools, and you'll probably have to deal with at least one of them if you want to hack away. If that's your cup o' tea, send me a pull request!
+
+ - [AdonisJs](https://adonisjs.com/) - Backend
+ - [vis.js](http://visjs.org/) - Interactive timeline
+
+An honorary🌟 mention goes out to [hfreire](https://github.com/hfreire) for his awesome [happn-wrapper](https://github.com/hfreire/happn-wrapper/).
