@@ -36,9 +36,31 @@
       return `<div>
         <h3><a href="https://www.google.com/maps/place/${encounter.lat},${encounter.lng}" target="_blank">${encounter.name}</a></h3>
       </div>`
-    }
+    },
+    height: '400px',
+    width: '100%',
+    /**
+     * The zooming is weird in that it sets the min/max amount of time you can
+     * see ACROSS the screen, rather than the unit of time used in the grid.
+     * For responsive websites this means smaller screens will have trouble zooming.
+     */
+    zoomMax: (1000*60*60*24*7),
+    zoomMin: (1000*60)
   };
 
   // Create a Timeline
   const timeline = new vis.Timeline(visContainer, dataset, timelineOptions);
+
+  // Default to latest 24h
+  timeline.setWindow((new Date)-86400000, (new Date))
+
+  //TODO: change the size of items based on how far zoomed we are?
+  timeline.on('rangechanged', function (e) {
+    // Only react to changes made by the user
+    if(e.byUser)
+    {
+      console.log('rangechanged', e)
+    }
+    //TODO: this should trigger a repaint in gmaps
+  });
 })
