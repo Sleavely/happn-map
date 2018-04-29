@@ -7,8 +7,16 @@
   <link rel="icon" type="image/png" href="{{ assetsUrl('img/happn-32x32.png') }}" sizes="32x32"/>
   <link rel="icon" type="image/png" href="{{ assetsUrl('img/happn-16x16.png') }}" sizes="16x16"/>
   <style type="text/css">
-    body, html {
+    html,
+    body
+    {
       font-family: sans-serif;
+    }
+    .photo
+    {
+      background-size: cover;
+      min-height: 100px;
+      min-width: 100px;
     }
   </style>
   {{ script('vendor/vis/dist/vis') }}

@@ -20,17 +20,21 @@
   if(apiResponse.error) return console.error(apiResponse.error.message, apiResponse.error)
 
   const dataset = new vis.DataSet(apiResponse.map((encounter, i) => {
-    return {
-      start: new Date(encounter.last),
-      content: encounter.name
-    }
+    encounter.start = new Date(encounter.last)
+    return encounter
   }))
 
   // DOM element where the Timeline will be attached
   const visContainer = document.getElementById('visualization')
 
   // Configuration for the Timeline
-  const timelineOptions = {};
+  const timelineOptions = {
+    template: (encounter, element, data) => {
+      return `<div class="photo" style="background-image: url(${encounter.photo});">
+        <h3><a href="https://www.google.com/maps/place/${encounter.lat},${encounter.lng}" target="_blank">${encounter.name}</a></h3>
+      </div>`
+    }
+  };
 
   // Create a Timeline
   const timeline = new vis.Timeline(visContainer, dataset, timelineOptions);
