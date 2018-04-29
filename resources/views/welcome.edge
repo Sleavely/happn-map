@@ -37,15 +37,21 @@
         // Test that it works
         let result = await fetch('/api/v1/account', {
           cache: 'no-cache',
-          credentials: 'same-origin' // <- make fetch() include cookies in the req
-        }).then((response) => response.json())
+          credentials: 'same-origin', // <- make fetch() include cookies in the req
+          headers: {'accept': 'application/json','content-type': 'application/json'}
+        })
+        .then((response) => response.json())
+        .catch((err) => console.error(err))
 
-        //TODO: tbh i dont know what it looks like when we fail, so.... GLHF LOL
-        console.log('attempt-result:', result)
-        if(result) console.log('token worked!', token)
-
-        //TODO: redirect or some such?
-
+        if(!result.error)
+        {
+          console.info('Token is valid', result.data)
+          //TODO: redirect or some such?
+        }
+        else
+        {
+          console.error(result.error.message, result.error)
+        }
       }
     }
 
