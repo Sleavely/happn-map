@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>Timeline - happn-map</title>
+  <link rel="icon" type="image/png" href="{{ assetsUrl('img/happn-196x196.png') }}" sizes="196x196"/>
+  <link rel="icon" type="image/png" href="{{ assetsUrl('img/happn-128x128.png') }}" sizes="128x128"/>
+  <link rel="icon" type="image/png" href="{{ assetsUrl('img/happn-32x32.png') }}" sizes="32x32"/>
+  <link rel="icon" type="image/png" href="{{ assetsUrl('img/happn-16x16.png') }}" sizes="16x16"/>
+  <style type="text/css">
+    body, html {
+      font-family: sans-serif;
+    }
+  </style>
+  {{ script('vendor/vis/dist/vis') }}
+  {{ css('vendor/vis/dist/vis') }}
+</head>
+<body>
+  <div id="visualization"></div>
+
+  {{ script('js/timeline') }}
+</body>
+</html>

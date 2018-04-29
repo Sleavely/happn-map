@@ -28,3 +28,12 @@ Route
 Route.get('/', async ({ view }) => {
   return view.render('welcome', { tokenCookieName: Config.get('happn.tokenCookie') })
 })
+
+Route.get('/timeline', async ({ request, response, view }) => {
+  const token = request.plainCookie(Config.get('happn.tokenCookie'))
+  if(!token)
+  {
+    return response.redirect('/')
+  }
+  return view.render('timeline')
+})
