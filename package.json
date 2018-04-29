@@ -1,19 +1,35 @@
 {
-  "name": "adonis-api-app",
-  "version": "4.1.0",
+  "name": "happn-map",
+  "version": "0.1.0",
   "adonis-version": "4.1.0",
-  "description": "Adonisjs boilerplate for API server with pre-configured JWT",
-  "main": "index.js",
+  "description": "A visual guide to your Happn encounters.",
+  "main": "server.js",
+  "engines": {
+    "node": ">= 8.0.0"
+  },
   "scripts": {
     "start": "node server.js",
     "test": "node ace test"
   },
   "keywords": [
-    "adonisjs",
-    "adonis-app"
+    "happn",
+    "happn-api",
+    "dating",
+    "timeline",
+    "map",
+    "adonis-js",
+    "adonis-app",
+    "nodejs"
   ],
-  "author": "",
-  "license": "UNLICENSED",
+  "author": "Joakim Hedlund <contact@joakimhedlund.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sleavely/happn-map.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Sleavely/happn-map/issues"
+  },
   "private": true,
   "dependencies": {
     "@adonisjs/ace": "^5.0.1",
