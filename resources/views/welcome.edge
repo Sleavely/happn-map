@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>happn-map</title>
+  <style>
+  </style>
+  {{ script('vendor/js-cookie/js.cookie') }}
+  <script>
+  // Anonymous, self-executing document-ready
+  (function(fn) {
+    if (document.readyState != 'loading'){
+      fn();
+    } else {
+      document.addEventListener('DOMContentLoaded', fn);
+    }
+  })(function(){
+
+    const cookieName = '{{ tokenCookieName }}'
+
+    const inputField = document.getElementById('token-extractor')
+    const validityIcon = document.getElementById('valid-token')
+
+    const extractToken = (url) => {
+      if(url.indexOf('#') === -1) return false
+
+      const paramsString = url.split('#')[1]
+      const searchParams = new URLSearchParams(paramsString)
+
+      return searchParams.get('access_token')
+    }
+
+    const attemptLogin = async () => {
+      let token = Cookies.get(cookieName)
+      if(token)
+      {
+        // Test that it works
+        let result = await fetch('/api/v1/account', {
+          cache: 'no-cache',
+          credentials: 'same-origin' // <- make fetch() include cookies in the req
+        }).then((response) => response.json())
+
+        //TODO: tbh i dont know what it looks like when we fail, so.... GLHF LOL
+        console.log('attempt-result:', result)
+        if(result) console.log('token worked!', token)
+
+        //TODO: redirect or some such?
+
+      }
+    }
+
+    inputField.addEventListener('input', () => {
+      if(inputField.value == '')
+      {
+        validityIcon.textContent = ''
+        return
+      }
+
+      const validToken = extractToken(inputField.value)
+      validityIcon.textContent = (!!validToken ? '\u2714' : '\u2718')
+
+      if(!!validToken)
+      {
+        // Set cookie valid for 59 days. The token is valid for 60, but lets
+        // avoid hitting the margin between generation and copy-paste.
+        Cookies.set(cookieName, validToken, { expires: 59 })
+        attemptLogin()
+      }
+    })
+    attemptLogin()
+  })
+  </script>
+</head>
+<body>
+  <h1>happn-map</h1>
+  <p>In order to get started, you need to generate an access token that happn-map can use to talk to the happn API on your behalf.</p>
+
+  <ol>
+    <li><a href="https://www.facebook.com/dialog/oauth?client_id=247294518656661&amp;redirect_uri=https://www.happn.fr&amp;scope=basic_info&amp;response_type=token" target="_blank">Authorize through Facebook</a></li>
+    <li>Once redirected to Happn, copy the entire URL (<img src="https://i.imgur.com/5PMBnZx.png" style="vertical-align: middle;" />)</li>
+    <li>Paste it in the box below</li>
+  </ol>
+  <div>
+    <input type="text" id="token-extractor" /><i id="valid-token"></i>
+  </div>
+  <p>The token is stored in a cookie for your convenience.</p>
+</body>
+</html>
