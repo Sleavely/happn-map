@@ -52,7 +52,7 @@ class ApiV1Controller {
     return result
   }
 
-  async getUser({ params })
+  async getUser({ request, params })
   {
     let happn = await this.apiClient({ request })
     const result = await happn.getUser(params.id)
