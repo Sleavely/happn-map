@@ -11,26 +11,13 @@
 
   const hm = new HappnMap;
   let dataset = await hm.init()
-
-
-
-  //TODO: change the size of items based on how far zoomed we are?
-  hm.timeline.on('rangechanged', function (e) {
-    // Only react to changes made by the user
-    if(e.byUser)
-    {
-      //TODO: check if we need to request more encounters
-      console.log('rangechanged', e)
-    }
-    //TODO: this should trigger a repaint in gmaps
-  });
 })
 
 class HappnMap {
   constructor(options)
   {
     const defaults = {
-      recommendationsLimit: 16,
+      recommendationsLimit: 64,
       recommendationsOffset: 0,
       timelineElementId: 'visualization',
       timelineWidth: '100%',
@@ -46,9 +33,17 @@ class HappnMap {
     await this.initMap()
     this.syncMap()
 
-    this.timeline.on('rangechanged', (e) => {
+    this.timeline.on('rangechanged', async (e) => {
       // Only react to changes made by the user
-      if(e.byUser) this.syncMap()
+      if(e.byUser) {
+        //TODO: check if we are out of bounds for what we have loaded, and if so request more
+        // If the timeline is further back than the earliest we have, request more
+        let earliestEncounter = this.dataset.min('start')
+        if(e.start < earliestEncounter.start) {
+          await this.getEncounters(this.options.recommendationsLimit, (this.lastTimelineOffset + this.options.recommendationsLimit))
+        }
+        this.syncMap()
+      }
     })
   }
 
@@ -73,7 +68,7 @@ class HappnMap {
     this.visContainer = document.getElementById(this.options.timelineElementId)
     this.timeline = new vis.Timeline(this.visContainer, this.dataset, this.timelineOptions)
     // Default to latest 24h
-    this.timeline.setWindow((new Date)-86400000, (new Date))
+    this.timeline.setWindow(this.dataset.min('start').start, (new Date))
   }
 
   async initMap()
@@ -112,6 +107,8 @@ class HappnMap {
   {
     if(!limit) limit = this.options.recommendationsLimit
     if(!offset) offset = this.options.recommendationsOffset
+
+    this.lastTimelineOffset = offset
 
     const response = await this.fetch(`/api/v1/timeline?limit=${limit}&offset=${offset}`)
 
