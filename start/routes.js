@@ -35,5 +35,5 @@ Route.get('/timeline', async ({ request, response, view }) => {
   {
     return response.redirect('/')
   }
-  return view.render('timeline')
+  return view.render('timeline', { MAPBOX_TOKEN: Config.get('happn.mapboxToken') })
 })
