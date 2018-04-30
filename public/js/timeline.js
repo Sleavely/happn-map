@@ -81,8 +81,7 @@ class HappnMap {
     this.map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/mapbox/streets-v9',
-      center: [-65.017, -16.457],
-      zoom: 5
+      zoom: 0
     })
     this.markers = []
   }
@@ -186,6 +185,7 @@ class HappnMap {
     if(this.markers.length)
     {
       this.map.fitBounds([[minLng, minLat], [maxLng, maxLat]], {
+        maxZoom: 17,
         padding: {top: 20, bottom:50, left: 30, right: 30}
       })
     }
