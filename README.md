@@ -2,7 +2,7 @@
 
 A simple map for actually finding someone you met on Happn.
 
-![screenshot](https://i.imgur.com/sTwyx8z.png)
+![screenshot](https://i.imgur.com/oIMVOmw.png)
 
 > B-but.. why?
 
