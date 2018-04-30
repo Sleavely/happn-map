@@ -132,8 +132,9 @@ class HappnMap {
     element.classList.add('photo')
     element.style.backgroundImage = `url(${encounter.photo})`
 
+    // <a href="https://www.google.com/maps/place/${encounter.lat},${encounter.lng}" target="_blank"></a>
     return `<div>
-      <h3><a href="https://www.google.com/maps/place/${encounter.lat},${encounter.lng}" target="_blank">${encounter.name}</a></h3>
+      <h3>${encounter.name}</h3>
     </div>`
   }
 
