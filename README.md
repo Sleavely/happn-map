@@ -27,5 +27,6 @@ _happn-map_ is built with the following tools, and you'll probably have to deal 
 
  - [AdonisJs](https://adonisjs.com/) - Backend
  - [vis.js](http://visjs.org/) - Interactive timeline
+ - [MapboxGL](https://www.mapbox.com/mapbox-gl-js/api/) - It's a map! In a box!
 
 An honorary🌟 mention goes out to [hfreire](https://github.com/hfreire) for his awesome [happn-wrapper](https://github.com/hfreire/happn-wrapper/).
