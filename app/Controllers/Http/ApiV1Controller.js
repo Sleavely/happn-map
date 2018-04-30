@@ -39,7 +39,7 @@ class ApiV1Controller {
     let result = await this.getRecommendations({ request })
     result = result.data.map((encounter) => {
       return {
-        userId: encounter.notifier.id,
+        id: encounter.notifier.id,
         name: encounter.notifier.first_name,
         photo: encounter.notifier.profiles[0].url,
         lat: encounter.notifier.last_meet_position.lat,
