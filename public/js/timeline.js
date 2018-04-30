@@ -36,10 +36,10 @@ class HappnMap {
     this.timeline.on('rangechanged', async (e) => {
       // Only react to changes made by the user
       if(e.byUser) {
-        //TODO: check if we are out of bounds for what we have loaded, and if so request more
         // If the timeline is further back than the earliest we have, request more
         let earliestEncounter = this.dataset.min('start')
         if(e.start < earliestEncounter.start) {
+          //TODO: we should make sure the last reply count wasnt lower than the recommendationsLimit; it would indicate we've reached the end
           await this.getEncounters(this.options.recommendationsLimit, (this.lastTimelineOffset + this.options.recommendationsLimit))
         }
         this.syncMap()
