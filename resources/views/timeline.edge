@@ -7,12 +7,24 @@
   <link rel="icon" type="image/png" href="{{ assetsUrl('img/happn-128x128.png') }}" sizes="128x128"/>
   <link rel="icon" type="image/png" href="{{ assetsUrl('img/happn-32x32.png') }}" sizes="32x32"/>
   <link rel="icon" type="image/png" href="{{ assetsUrl('img/happn-16x16.png') }}" sizes="16x16"/>
-  <style type="text/css">
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+  {{ script('vendor/vis/dist/vis') }}
+  {{ css('vendor/vis/dist/vis') }}
+  <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.js"></script>
+  <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.css" rel="stylesheet" />
+  <script>
+    mapboxgl.accessToken = '{{{ MAPBOX_TOKEN }}}';
+  </script>
+  <style>
+    /* General styles */
     html,
     body
     {
       font-family: sans-serif;
     }
+  </style>
+  <style>
+    /* Timeline styles */
     #visualization .vis-item
     {
       background-color: transparent;
@@ -57,11 +69,38 @@
       text-decoration: none;
     }
   </style>
-  {{ script('vendor/vis/dist/vis') }}
-  {{ css('vendor/vis/dist/vis') }}
+  <style>
+    /* Mapbox styles */
+    #map
+    {
+      min-height: 400px;
+      width: 100%;
+    }
+
+    .marker
+    {
+      display: block;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      padding: 0;
+    }
+  </style>
 </head>
 <body>
-  <div id="visualization"></div>
+<div class="grid-container">
+  <div class="grid-row">
+    <div class="grid-column">
+      <div id="map"></div>
+    </div>
+    <div class="grid-column">
+      <div id="profile"></div>
+    </div>
+  </div>
+  <div class="grid-row">
+    <div id="visualization"></div>
+  </div>
+</div>
 
   {{ script('js/timeline') }}
 </body>
