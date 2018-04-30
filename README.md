@@ -2,6 +2,8 @@
 
 A simple map for actually finding someone you met on Happn.
 
+![screenshot](https://i.imgur.com/sTwyx8z.png)
+
 > B-but.. why?
 
 Happn is a great idea. The premise is that you go about your day and see someone you fancy. Maybe you exchange smiles on a bus, maybe it's the cute person in front of you at the supermarket, who knows? The point is, you're supposed to _encounter_ anyone that also has the app and has been in the same area as you at the same time.
