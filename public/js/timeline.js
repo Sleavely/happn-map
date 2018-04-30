@@ -45,6 +45,11 @@ class HappnMap {
     await this.initTimeline()
     await this.initMap()
     this.syncMap()
+
+    this.timeline.on('rangechanged', (e) => {
+      // Only react to changes made by the user
+      if(e.byUser) this.syncMap()
+    })
   }
 
   async initDataset()
@@ -73,7 +78,13 @@ class HappnMap {
 
   async initMap()
   {
-
+    this.map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/mapbox/streets-v9',
+      center: [-65.017, -16.457],
+      zoom: 5
+    })
+    this.markers = []
   }
 
   async fetch(uri, opts)
@@ -127,12 +138,56 @@ class HappnMap {
     </div>`
   }
 
+  renderMapMarker(encounter)
+  {
+    let el = document.createElement('div')
+    el.classList.add('marker')
+    el.classList.add('photo')
+    el.style.backgroundImage = `url(${encounter.photo})`
+
+    el.addEventListener('click', () => {
+      window.alert(encounter.name);
+    });
+
+    // add marker to map
+    return new mapboxgl.Marker(el)
+      .setLngLat([encounter.lng, encounter.lat])
+      .addTo(this.map);
+  }
+
   /**
    * Add any items that arent already on the map, fit map to the markers in the range
    */
   syncMap()
   {
-    //
-    //TODO: get visible items
+    //TODO: Clean items from map?
+    this.markers.forEach((marker) => {
+      marker.remove()
+    })
+    this.markers = []
+
+    let maxLat = undefined
+    let minLat = undefined
+    let maxLng = undefined
+    let minLng = undefined
+
+    //TODO: get visible items from timeline
+    const visible = this.timeline.getVisibleItems()
+    visible.forEach((datasetId) => {
+      let encounter = this.dataset.get(datasetId)
+      this.markers.push( this.renderMapMarker(encounter) )
+      if(typeof maxLat == 'undefined' || encounter.lat > maxLat) maxLat = encounter.lat
+      if(typeof minLat == 'undefined' || encounter.lat < minLat) minLat = encounter.lat
+      if(typeof maxLng == 'undefined' || encounter.lng > maxLng) maxLng = encounter.lng
+      if(typeof minLng == 'undefined' || encounter.lng < minLng) minLng = encounter.lng
+    })
+    //TODO: Then for each encounter
+    //TODO: fit-to-markers
+    if(this.markers.length)
+    {
+      this.map.fitBounds([[minLng, minLat], [maxLng, maxLat]], {
+        padding: {top: 20, bottom:50, left: 30, right: 30}
+      })
+    }
   }
 }
