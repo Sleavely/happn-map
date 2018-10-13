@@ -30,8 +30,72 @@ class ApiV1Controller {
     const limit = parseInt(query.limit || 16, 10)
     const offset = parseInt(query.offset || 0, 10)
 
-    let result = await happn.getRecommendations(limit, offset)
-    return result
+    let fields = [
+      'id',
+      'lat',
+      'lon',
+      'modification_date',
+      'notification_type',
+      'nb_times',
+      'notifier.fields('+[
+        'id',
+        'first_name',
+        'last_name',
+        'gender',
+        'age',
+        'job',
+        'workplace',
+        'about',
+        'school',
+        'availability',
+        'clickable_profile_link',
+        'clickable_message_link',
+        'distance',
+        'already_charmed',
+        'has_charmed_me',
+        'is_accepted',
+        'is_charmed',
+        'is_invited',
+        'last_invite_received',
+        'my_conversation',
+        'my_relation',
+        'nb_photos',
+        //'role',
+        'type',
+        'last_meet_position.fields('+[
+          'lat',
+          'lon',
+          'creation_date',
+          'modification_date'
+        ].join(',')+')',
+        'profiles.mode(1).width(360).height(640).fields('+[
+          'width',
+          'height',
+          'mode',
+          'url'
+        ].join(',')+')',
+        'social_synchronization.fields(instagram)',
+        'spotify_tracks',
+        'fb_id',
+        'twitter_id',
+      ].join(',')+')'
+    ].join(',')
+
+    const options = {
+      url: `https://api.happn.fr/api/users/${happn._userId}/crossings`,
+      headers: {
+        'Authorization': `OAuth="${happn._accessToken}"`
+      },
+      qs: {
+        offset,
+        limit,
+        fields
+      },
+      json: true
+    }
+
+    let res = await happn._request.get(options)
+    return res.body
   }
 
   async getTimeline({ request })
