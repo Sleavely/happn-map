@@ -59,6 +59,7 @@ class HappnMap {
       template: this.renderTimelineItem,
       width: this.options.timelineWidth,
       height: this.options.timelineHeight,
+      selectable: false,
       // The zooming is weird in that it sets the min/max amount of time you can
       // see ACROSS the screen, rather than the unit of time used in the grid.
       // For responsive websites this means smaller screens will have trouble zooming.
