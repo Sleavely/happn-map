@@ -119,7 +119,7 @@ class HappnMap {
       return encounter
     })
 
-    //TODO: we should make sure we arent adding duplicates
+    //TODO: we should make sure we arent adding duplicates (though Happn only shows users once in your timeline)
     this.dataset.add(formattedData)
     return this.dataset
   }
@@ -156,7 +156,7 @@ class HappnMap {
    */
   syncMap()
   {
-    //TODO: Clean items from map?
+    //TODO: maybe we should hold off with removing markers until we know which ones to keep?
     this.markers.forEach((marker) => {
       marker.remove()
     })
@@ -167,7 +167,6 @@ class HappnMap {
     let maxLng = undefined
     let minLng = undefined
 
-    //TODO: get visible items from timeline
     const visible = this.timeline.getVisibleItems()
     visible.forEach((datasetId) => {
       let encounter = this.dataset.get(datasetId)
@@ -177,8 +176,6 @@ class HappnMap {
       if(typeof maxLng == 'undefined' || encounter.lng > maxLng) maxLng = encounter.lng
       if(typeof minLng == 'undefined' || encounter.lng < minLng) minLng = encounter.lng
     })
-    //TODO: Then for each encounter
-    //TODO: fit-to-markers
     if(this.markers.length)
     {
       this.map.fitBounds([[minLng, minLat], [maxLng, maxLat]], {
